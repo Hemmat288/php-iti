@@ -1,6 +1,19 @@
 <html>
     <body>
-        <a href="idex.php">Add Student</a>
+        <?php 
+        if($_COOKIE["fname"]){
+               echo" <h2>Welcome  {$_COOKIE["fname"]}</h2>" ;
+        }
+         else{
+             header("location:login.php");
+         }
+        
+        ?>  
+
+
+
+
+        <a href="addStudent.php">Add Student</a>
         <table border=1>
             <tr>
                 <th>id</th>
@@ -21,12 +34,14 @@ $pdo = new pdo("mysql:host=localhost;dbname=phpQena", "root","");
  
 while($row=$data->fetch(PDO::FETCH_ASSOC)){
     echo "<tr>";
- foreach($row as $value ){
+ foreach($row as $key => $value ){
+     if($key!= "password"){
      echo "<td> $value </td>";
  }
-echo "<td><a href='show.php?id={$row['id']}'>show</a></td>";
-echo "<td><a href='edit.php?id={$row['id']}'>edit</a></td>";
-echo "<td><a href='delete.php?id={$row['id']}'>delete</a></td>";
+}
+echo "<td><a href='studentController.php?id={$row['id']}&show'>show</a></td>";
+echo "<td><a href='studentController.php?id={$row['id']}&edit'>edit</a></td>";
+echo "<td><a href='studentController.php?id={$row['id']}&delete'>delete</a></td>";
     echo  "</tr>";
 }
 

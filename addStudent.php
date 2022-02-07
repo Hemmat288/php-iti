@@ -1,113 +1,46 @@
 <?php
-// $connection = new mysqli("localhost", "root", "");
+ if(isset($_POST['error'])){
+  $error=json_decode(($_POST['error']),true);
+  
+ }
 
-// if($connection ->connect_error){
-//     die("conection error is: ".$connection ->connect_error);
-// }
-
-// var_dump($connection);
-// $connection -> query("
-//   CREATE DATABASE IF NOT EXISTS phpQena;
-// ");
-
-// $connection ->close();
-
-
-
-
-
-
-
-
-// $connection = new mysqli("localhost", "root","", "phpQena");
-
-// if($connection ->connect_error){
-//     die("conection error is: ".$connection ->connect_error);
-// }
-
-// var_dump($connection);
-// $connection -> query("
-//     create table student(
-//       id int not Null AUTO_INCREMENT primary key,
-//       fanme varchar (50),   
-//       lanme varchar (50),    
-//       email varchar (50), 
-//     address varchar (50)
-//        )
-// ");
-
-// $connection ->close();
-
-
-
-
-
-
-
-// $connection = new mysqli("localhost", "root","", "phpQena");
-
-// if($connection ->connect_error){
-//     die("conection error is: ".$connection ->connect_error);
-// }
-
-//  $fname=$_GET['fname'];
-//  $lname=$_GET['lname'];
-//  $email=$_GET['email'];
-//  $address=$_GET['address'];
-// $connection -> query("
-   
-//       insert into  student set fanme = '$fname', lname='$lname', email='$email', address=' $address'
-// ");
-
-// $connection ->close();
-
-
-
-try{
-$connection = new pdo("mysql:host=localhost;dbname=phpQena", "root","");
-
- $fname=$_GET['fname'];
- $lname=$_GET['lname'];
- $email=$_GET['email'];
- $address=$_GET['address'];
- $stm=$connection->prepare("
-   
-      insert into  student set
-       fname = ?,
-        lname=?, 
-        email=?,
-         address=?
-");
- $stm->execute([$fname,$lname,$email,$address]);
-}catch(PDOException $e){
-echo $e->getMesage();
-}
-
-$connection = null;
-  header("location:list.php");
-
+       if($_COOKIE["fname"]){
+               echo" <h2>Welcome  {$_COOKIE["fname"]}</h2>" ;
+        }
+         else{
+             header("location:login.php");
+         }
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<html>
+ <body>
+     <form method="post" action="studentController.php" enctype="multipart/form-data">
+   
+         <input required type="text" name="fname" placeholder="First Name">
+         <?php if(isset($error["fname"])){
+           echo $error["fname"];
+         } ?>
+         <br>
+         <input required type="text" name="lname" placeholder="last Name" >
+         <?php if(isset($error["lname"])){
+           echo $error["lname"];
+         } ?>
+         
+         <br>
+         <input required type="mail" name="email" placeholder="Email">
+         <?php if(isset($error["email"])){
+           echo $error["email"];
+         } ?>
+         <br>
+         <input  type="text" name="address" placeholder="Address">
+         <br>
+          
+        <input type="password" name="Password" placeholder="passwoord...">
+        <br>
+       <input type="file" name="img" placeholder="Upload File">
+       <br>
+         <br>
+        <input type="submit" value="Add student" name="addstudent">
+            
+            </form>
+</body>
+</html>

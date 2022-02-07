@@ -1,26 +1,23 @@
 <?php
-$id=$_GET['id'];
-try{
-$pdo = new pdo("mysql:host=localhost;dbname=phpQena", "root","");
+      
+        if($_COOKIE["fname"]){
+               echo" <h2>Welcome {$_COOKIE["fname"]}</h2>" ;
+               echo "<br>";
+        }
+         else{
+             header("location:login.php");
+         }
+        
+       
 
-$sudentData=$pdo->query("select * from  student where id=$id");
- 
 
-while($sudent=$sudentData->fetch(PDO::FETCH_ASSOC)){
+$studentinfo = json_decode($_GET['data']);
      
- foreach($sudent as  $key => $value){
+ foreach($studentinfo as  $key => $value){
      echo  $key.' '.$value."<br>"  ;
  }
  
   
-}
-
-
-
-}catch(PDOException $e){
-echo $e->getMesage();
-}
-
-
-$pdo = null;
+ 
+ 
 ?>
