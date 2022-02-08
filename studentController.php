@@ -19,7 +19,7 @@ try{
  $email=validation($_POST['email']);
  $address=validation($_POST['address']);
  $Password=validation($_POST['Password']);
- $imgName=validation($_FILES["name"]);
+ $imgName=validation($_FILES["img"]["name"]);
 
   $error=[];
 
